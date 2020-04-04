@@ -6,37 +6,29 @@ import codes.biscuit.skyblockaddons.utils.Feature;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ImageBufferDownload;
 
-import org.spongepowered.asm.mixin.Mixin; //should probably convert this to the sba way but idk what I'm doing
-import org.spongepowered.asm.mixin.Overwrite; //
-import org.spongepowered.asm.mixin.Shadow; //
+//import org.spongepowered.asm.mixin.Mixin; //should probably convert this to the sba way but idk what I'm doing
+//import org.spongepowered.asm.mixin.Overwrite; //
+//import org.spongepowered.asm.mixin.Shadow; //
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-@Mixin(ImageBufferDownload.class) //
 public class ImageBufferDownloadHook {
-    @Ovewrite //
-    public String[] getClassName() {
-        return new String[]{TransformerClass.FontRenderer.getTransformerName()};
-    }
-    
-    @Shadow //
+    //@Shadow
     private int[] imageData;
-
-    @Shadow //
+    //@Shadow
     private int imageWidth;
-
-    @Shadow
+    //@Shadow
     private int imageHeight;
-
-    @Shadow //
+    //@Shadow
     protected abstract void setAreaOpaque(int x, int y, int width, int height);
-
-    @Shadow //
+    //@Shadow
     protected abstract void setAreaTransparent(int x, int y, int width, int height);
 
-    @Overwrite //
+    //note: I heard it might be possible to fix head transparency more easily by just overriding
+    //the setOpacity method or whatever and making it do nothing, untested
+    //@Overwrite
     public BufferedImage parseUserSkin(BufferedImage image) {
         if (image == null) {
             return null;
