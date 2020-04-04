@@ -24,7 +24,7 @@ public class ImageBufferDownloadTransformer implements ITransformer {
             // Find: .
             // Replacement: .
 
-            if (TransformerMethod./**/.matches(methodNode)) {
+            if (TransformerMethod.updateScreen.matches(methodNode)) {
                 methodNode.instructions.insertBefore(methodNode.instructions.getFirst(), insertConfirmation());
                 break;
             }
