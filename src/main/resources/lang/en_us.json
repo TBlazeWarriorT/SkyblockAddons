@@ -104,7 +104,8 @@
       "fade": "Color Fade"
     },
     "chromaFadeWidth": "Chroma Fade Width",
-    "sortTabEffectTimers": "Sort Timers by Duration"
+    "sortTabEffectTimers": "Sort Timers by Duration",
+    "headTransparencyFix": "Fix Custom Head Transparency"
   },
   "messages": {
     "dropConfirmation": "Drop this item again to confirm!",
