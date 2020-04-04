@@ -1,42 +1,48 @@
 //credit to SteveKunG for the code
-package stevekung.mods.indicatia.mixin;
+package codes.biscuit.skyblockaddons.asm.hooks;
+
+import codes.biscuit.skyblockaddons.SkyblockAddons;
+import codes.biscuit.skyblockaddons.utils.Feature;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ImageBufferDownload;
+
+import org.spongepowered.asm.mixin.Mixin; //should probably convert this to the sba way but idk what I'm doing
+import org.spongepowered.asm.mixin.Overwrite; //
+import org.spongepowered.asm.mixin.Shadow; //
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
-
-import net.minecraft.client.renderer.ImageBufferDownload;
-import stevekung.mods.indicatia.config.ConfigManagerIN;
-
-@Mixin(ImageBufferDownload.class)
-public abstract class ImageBufferDownloadMixin {
-    @Shadow
+@Mixin(ImageBufferDownload.class) //
+public class ImageBufferDownloadHook {
+    @Ovewrite //
+    public String[] getClassName() {
+        return new String[]{TransformerClass.FontRenderer.getTransformerName()};
+    }
+    
+    @Shadow //
     private int[] imageData;
 
-    @Shadow
+    @Shadow //
     private int imageWidth;
 
     @Shadow
     private int imageHeight;
 
-    @Shadow
+    @Shadow //
     protected abstract void setAreaOpaque(int x, int y, int width, int height);
 
-    @Shadow
+    @Shadow //
     protected abstract void setAreaTransparent(int x, int y, int width, int height);
 
-    @Overwrite
+    @Overwrite //
     public BufferedImage parseUserSkin(BufferedImage image) {
         if (image == null) {
             return null;
-        }
-        else {
+        } else {
             //Player head transparency fix
-            if (ConfigManagerIN.enableSkinRenderingFix) {
+            if (main.getUtils().isOnSkyblock() && Minecraft.getMinecraft().currentScreen == null && main.getConfigValues().isEnabled(Feature.HEAD_TRANSPARENCY_FIX)) {
                 if (image.getHeight() == 32) {
                     BufferedImage bufferedimage = new BufferedImage(64, 64, 2);
                     Graphics graphics = bufferedimage.getGraphics();
