@@ -13,8 +13,7 @@ import net.minecraft.client.renderer.ImageBufferDownload;
 import stevekung.mods.indicatia.config.ConfigManagerIN;
 
 @Mixin(ImageBufferDownload.class)
-public abstract class ImageBufferDownloadMixin
-{
+public abstract class ImageBufferDownloadMixin {
     @Shadow
     private int[] imageData;
 
@@ -31,18 +30,14 @@ public abstract class ImageBufferDownloadMixin
     protected abstract void setAreaTransparent(int x, int y, int width, int height);
 
     @Overwrite
-    public BufferedImage parseUserSkin(BufferedImage image)
-    {
-        if (image == null)
-        {
+    public BufferedImage parseUserSkin(BufferedImage image) {
+        if (image == null) {
             return null;
         }
-        else
-        {
-            if (ConfigManagerIN.enableSkinRenderingFix)
-            {
-                if (image.getHeight() == 32)
-                {
+        else {
+            //Player head transparency fix
+            if (ConfigManagerIN.enableSkinRenderingFix) {
+                if (image.getHeight() == 32) {
                     BufferedImage bufferedimage = new BufferedImage(64, 64, 2);
                     Graphics graphics = bufferedimage.getGraphics();
                     graphics.drawImage(image, 0, 0, null);
@@ -62,17 +57,15 @@ public abstract class ImageBufferDownloadMixin
                     return bufferedimage;
                 }
                 return image;
-            }
-            else
-            {
+            //vanilla code
+            } else {
                 this.imageWidth = 64;
                 this.imageHeight = 64;
                 BufferedImage bufferedimage = new BufferedImage(this.imageWidth, this.imageHeight, 2);
                 Graphics graphics = bufferedimage.getGraphics();
                 graphics.drawImage(image, 0, 0, null);
 
-                if (image.getHeight() == 32)
-                {
+                if (image.getHeight() == 32) {
                     graphics.drawImage(bufferedimage, 24, 48, 20, 52, 4, 16, 8, 20, null);
                     graphics.drawImage(bufferedimage, 28, 48, 24, 52, 8, 16, 12, 20, null);
                     graphics.drawImage(bufferedimage, 20, 52, 16, 64, 8, 20, 12, 32, null);
