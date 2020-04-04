@@ -48,6 +48,7 @@ public enum TransformerClass {
     GuiDisconnected("net/minecraft/client/gui/GuiDisconnected", "axh"),
     GuiButton("net/minecraft/client/gui/GuiButton", "avs"),
     GuiIngameMenu("net/minecraft/client/gui/GuiIngameMenu", "axp"),
+    ImageBufferDownload("net/minecraft/client/renderer/ImageBufferDownload", ""),
 
     NULL(null,null);
 
